@@ -1,9 +1,24 @@
 class KnightPathFinder
   attr_accessor :root_node, :considered_pos
 
-  def initialize(start_pos)
+  def self.board_generator(n)
+    arr = []
+    (0..n).each do |i|
+      (0..n).each do |j|
+        arr.push([i, j])
+      end
+    end
+    arr
+  end
+
+  @@board_pos = KnightPathFinder.board_generator(7)
+
+
+
+  def initialize(start_pos)#
     @root_node = PolyTreeNode.new(start_pos)
     @considered_pos = [start_pos]
+    self.build_move_tree
   end
 
   def self.valid_moves(pos)
@@ -16,7 +31,7 @@ class KnightPathFinder
     [x-1, y-2], 
     [x-2, y+1], 
     [x-2, y-1]]
-
+    valid.select { |pos| @@board_pos.include?(pos) }
   end
 
   def new_move_positions(pos)
@@ -25,20 +40,13 @@ class KnightPathFinder
     new_pos
   end
 
-  def build_move_tree(final_pos)
+  def build_move_tree
     qeueu = [root_node]
     until qeueu.empty?
-      p qeueu
-      puts
       new_move_positions(qeueu[0].value).map do |positions|
         qeueu[0].add_child(PolyTreeNode.new(positions))
       end
-      var = qeueu.shift
-      if var.value == final_pos
-        return var
-      else
-        qeueu.concat(var.children)
-      end
+      qeueu.concat(qeueu.shift.children)
     end
   end
 
@@ -99,8 +107,5 @@ class PolyTreeNode
 end
 
 kpf = KnightPathFinder.new([0, 0])
-p kpf.build_move_tree([5, 4])
-# p kpf.new_move_positions([1,1])
-# puts
-# p kpf.new_move_positions([2,3])
-# p kpf.root_node.value
+# kpf.build_move_tree
+p kpf.considered_pos.length
