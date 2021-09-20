@@ -25,8 +25,14 @@ class KnightPathFinder
     new_pos
   end
 
-  def build_move_tree
-    
+  def build_move_tree(final_pos)
+    qeueu = [root_node]
+    until qeueu.empty?
+      children = qeueu[-1].new_move_positions.map do |positions|
+        PolyTreeNode.new(positions)
+      end
+      qeueu[-1].children = children
+    end
   end
 
 
