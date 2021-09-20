@@ -1,5 +1,5 @@
 class KnightPathFinder
-  attr_accessor :root_node
+  attr_accessor :root_node :considered_pos
 
   def initialize(start_pos)
     @root_node = PolyTreeNode.new(start_pos)
@@ -7,7 +7,22 @@ class KnightPathFinder
   end
 
   def self.valid_moves(pos)
-    
+    x, y = pos
+    valid = [[x+2, y+1], 
+    [x+2, y-1], 
+    [x+1, y+2], 
+    [x+1, y-2], 
+    [x-1, y+2], 
+    [x-1, y-2], 
+    [x-2, y+1], 
+    [x-2, y-1]]
+
+  end
+
+  def new_move_positions(pos)
+    new_pos = KnightPathFinder.valid_moves(pos) - considered_pos
+    considered_pos.concat(new_pos)
+    new_pos
   end
 
   def build_move_tree
