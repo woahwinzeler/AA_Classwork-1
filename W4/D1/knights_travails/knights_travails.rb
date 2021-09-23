@@ -106,11 +106,11 @@ class PolyTreeNode
   end
 
   def traceback_path
-    path = []
-    root = self.parent
+    path = [self]
+    root = self
     until root.parent.nil?
       path.unshift(root.parent)
-      root = path[0].parent
+      root = path[0]
     end
     return path
   end
