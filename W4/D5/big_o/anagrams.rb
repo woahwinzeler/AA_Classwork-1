@@ -13,8 +13,18 @@ def anagram_2(string_1, string_2)
 
   letter1.each do |i|
     i2 = letter2.find_index(i)
+    return false if i2 == nil
+    letter2.delete_at(i2)
   end
+  letter2.empty?
 end
 
-p first_anagram?("gizmo", "sally")    #=> false
-p first_anagram?("elvis", "lives")    #=> true
+def anagram_3(string1, string2)
+  sorted_string1 = string1.split('').sort.join
+  sorted_string2 = string2.split('').sort.join
+
+  sorted_string1 == sorted_string2
+end
+
+p anagram_2("gizmo", "sally")    #=> false
+p anagram_2("elvis", "lives")    #=> true
