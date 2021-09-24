@@ -21,5 +21,27 @@ def my_min(array)
   return min
 end
 
-list = [ 0, 3, 5, 4, -5, 10, 1, 90 ]
-my_min_1(list)  # =>  -5
+# phase 1
+def sub_sum(array)
+  sub_arr = []
+  array.each.with_index do |num, i|
+    j = i + 1
+    sub_arr << num
+    temp_arr = [num]
+    while j < array.length
+      sub_arr << (temp_arr.push(array[j]))
+    end
+  end
+  sub_arr.each { |arr| arr = arr.sum }
+  sub_arr.max
+end
+
+# phase 2
+def sub_sum_2(array)
+  current_sum = 0
+  largest_sum = 0
+
+end
+
+list = [2, 3, -6, 7, -6, 7] # [2] [2, 3] [2, 3, -6]...
+sub_sum_2(list) # => 8 (from [7, -6, 7])
