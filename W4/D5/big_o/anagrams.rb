@@ -39,7 +39,7 @@ end
 # phase 2
 def sub_sum_2(array)
   current_sum = 0
-  largest_sum = 0
+  largest_sum = array.first
   array.each do |el|
     current_sum = current_sum + el
     if current_sum > largest_sum
@@ -49,19 +49,16 @@ def sub_sum_2(array)
       largest_sum = el
       current_sum = el
     end
-    # (0...array.length).each do |i|
-    #   current_sum += array[i]
-    #   largest_sum = current_sum if current_sum > largest_sum
-    #   current_sum = 0 if i == (array.length - 1)
   end
   return largest_sum
 end
 
-list = [2, 3, -6, 7, -6, 7] # [2] [2, 3] [2, 3, -6]...
-p sub_sum_2(list) # => 8 (from [7, -6, 7])
+# list = [2, 3, -6, 7, -6, 7] # [2] [2, 3] [2, 3, -6]...
+# p sub_sum_2(list) # => 8 (from [7, -6, 7])
 
-list = [5, 3, -7]
-p sub_sum_2(list) # => 8
+# list = [5, 3, -7]
+# p sub_sum_2(list) # => 8
 
-list = [-5, -1, -3]
-p sub_sum_2(list)
+# list = [-5, -1, -3]
+# p sub_sum_2(list) # => -1
+
