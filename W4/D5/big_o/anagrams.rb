@@ -26,5 +26,31 @@ def anagram_3(string1, string2)
   sorted_string1 == sorted_string2
 end
 
-p anagram_2("gizmo", "sally")    #=> false
-p anagram_2("elvis", "lives")    #=> true
+def anagram_4(str1, str2)
+  hash1 = Hash.new(0)
+  hash2 = Hash.new(0)
+  str1.each_char do |letter|
+    hash1[letter] += 1
+  end
+
+  str2.each_char do |letter|
+    hash2[letter] += 1
+  end
+
+  hash1 == hash2
+
+end
+
+def anagram_5(str1, str2)
+  hash= Hash.new(0)
+  str1.each_char do |letter|
+    hash[letter] += 1
+  end
+  str2.each_char do |letter|
+    hash[letter] -= 1
+  end
+  hash.values.all?(0)
+end
+
+p anagram_5("gizmo", "sally")    #=> false
+p anagram_5("elvis", "lives")    #=> true
