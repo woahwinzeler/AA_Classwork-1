@@ -10,7 +10,7 @@ class Array
       key = key * 10
       key += copy.shift
     end
-    return key
+    return key.hash
   end
 end
 
@@ -25,7 +25,7 @@ class String
       key += alphabet.index(copy[0]) + 1
       copy = copy[1..-1]
     end
-    return key
+    return key.hash
   end
 end
 
@@ -42,6 +42,6 @@ class Hash
     keys.to_s.empty? ? keys = 0 : keys = keys.sort.join('').to_s.to_i
  
     values.empty? ? values = 0 : values = values.sort.join("").to_s.to_i
-    keys + values
+    keys.hash + values.hash
   end
 end
