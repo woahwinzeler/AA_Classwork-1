@@ -74,17 +74,12 @@ class ResizingIntSet
   end
 
   def insert(num)
-    if count == num_buckets
-      temp = @store
-      @store = Array.new(num_buckets*2) { Array.new }
-      temp.each do |t|
-        self[t].push(t)
+    if !self.include?(num)
+      if count == num_buckets
+        resize!
       end
-    else
-      if self.include?(num) == false
-        self[num].push(num)
-        @count += 1
-      end
+      self[num].push(num)
+      @count += 1
     end
   end
 
@@ -111,13 +106,12 @@ class ResizingIntSet
   end
 
   def resize!
-    if count == num_buckets
-      temp = @store
-      @store = Array.new(num_buckets*2) { Array.new }
-      temp.each do |t|
-        self[t].push(t)
+    temp = @store
+    @store = Array.new(num_buckets * 2) { Array.new }
+    temp.each do |t|
+      t.each do |num|
+        self[num].push(num)
       end
     end
-    count = 0
   end
 end
