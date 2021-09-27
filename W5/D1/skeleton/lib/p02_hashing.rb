@@ -39,7 +39,9 @@ class Hash
     values.each_with_index do |el, i|
       values[i] = el.hash
     end
-    hashed = keys.to_s.join("") + values.to_s.join("")
-    hashed.to_i
+    keys.to_s.empty? ? keys = 0 : keys = keys.sort.join('').to_s.to_i
+ 
+    values.empty? ? values = 0 : values = values.sort.join("").to_s.to_i
+    keys + values
   end
 end
