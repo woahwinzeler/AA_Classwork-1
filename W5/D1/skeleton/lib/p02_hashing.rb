@@ -33,6 +33,13 @@ class Hash
   # This returns 0 because rspec will break if it returns nil
   # Make sure to implement an actual Hash#hash method
   def hash
-    0
+    keys = self.keys
+    keys.map! {|el| el = el.length}
+    values = self.values
+    values.each_with_index do |el, i|
+      values[i] = el.hash
+    end
+    hashed = keys.to_s.join("") + values.to_s.join("")
+    hashed.to_i
   end
 end
