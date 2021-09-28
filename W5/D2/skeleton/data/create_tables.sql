@@ -69,8 +69,7 @@ CREATE TABLE movies (
     yr integer,
     score double precision,
     votes integer,
-    director_id integer
-);
+    director_id integer);
 
 CREATE TABLE nobels (
     yr integer,
