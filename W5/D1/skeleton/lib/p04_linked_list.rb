@@ -21,6 +21,8 @@ end
 
 class LinkedList
 
+  attr_reader :head, :tail
+
   include Enumerable
 
   def initialize
@@ -36,9 +38,11 @@ class LinkedList
   end
 
   def first
+    head.next
   end
 
   def last
+    tail.prev
   end
 
   def empty?
@@ -47,12 +51,31 @@ class LinkedList
   end
 
   def get(key)
+    cur = head.next
+    until cur.value == nil
+      return cur.value if cur.key == key
+      cur = cur.next
+    end
+    return nil
   end
 
   def include?(key)
+    cur = head.next
+    until cur.value == nil
+      return true if cur.key == key
+      cur = cur.next
+    end
+    return false
   end
 
   def append(key, val)
+    key = Node.new(key, val)
+    key.prev = tail.prev
+    tail.prev.next = key
+    tail.prev = key
+    # old tail.prev.next = new node
+    # new node tail as next
+    # old tail.prev as prev
   end
 
   def update(key, val)
