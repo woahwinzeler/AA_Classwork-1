@@ -37,6 +37,22 @@ class Users
     Users.new(user.first)
   end
 
+  def self.find_by_name(fname, lname)
+    name = QuestionsDatabase.instance.execute(<<-SQL, fname, lname)
+    SELECT *
+    FROM users
+    WHERE fname = ?
+    AND
+    lname = ?
+    SQL
+    return nil unless name.length > 0
+    Users.new(name.first)
+  end
+
+  def authored_questions
+    Question.find_by_author_id
+  end
+
 end
 
 class Questions
@@ -59,6 +75,18 @@ class Questions
     return nil unless question.length > 0 
     Questions.new(question.first)
   end
+
+  def find_by_author_id(id)
+    question = QuestionsDatabase.instance.execute(<<-SQL, id)
+    SELECT *
+    FROM questions
+    WHERE author_id = ?
+    SQL
+
+    return nil unless question.length > 0 
+    Questions.new(question.first)
+  end
+
 
 end
 
@@ -101,6 +129,28 @@ class Replies
     SELECT *
     FROM replies
     WHERE id = ?
+    SQL
+
+    return nil unless reply.length > 0 
+    Replies.new(reply.first)
+  end
+
+  def self.find_by_user_id(id)
+    reply = QuestionsDatabase.instance.execute(<<-SQL, id)
+    SELECT *
+    FROM replies
+    WHERE user_id = ?
+    SQL
+
+    return nil unless reply.length > 0 
+    Replies.new(reply.first)
+  end 
+
+  def self.find_by_question_id(id)
+    reply = QuestionsDatabase.instance.execute(<<-SQL, id)
+    SELECT *
+    FROM replies
+    WHERE question_id = ?
     SQL
 
     return nil unless reply.length > 0 
