@@ -14,10 +14,10 @@ class QuestionsDatabase < SQLite3::Database
 end
 
 class Users
-  def self.all
-    data = QuestionsDatabase.instance.execute("SELECT * FROM users")
-    data.map { |options| Users.new(options) }
-  end
+  # def self.all
+  #   data = QuestionsDatabase.instance.execute("SELECT * FROM users")
+  #   data.map { |options| Users.new(options) }
+  # end
 
   def initialize(options)
     @fname = options['fname']
@@ -25,10 +25,16 @@ class Users
     @id = options['id']
   end
 
-  def self.find_by_id()
-
+  def self.find_by_id(id)
+    user = QuestionsDatabase.instance.execute(<<-SQL, id)
+    SELECT *
+    FROM users
+    WHERE id = ?
+    SQL
+    return nil unless user.length > 0
+    Users.new(user.first)
   end
 
 end
 
-p Users.all
+p Users.find_by_id(1)
