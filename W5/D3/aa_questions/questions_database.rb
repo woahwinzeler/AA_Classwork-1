@@ -16,10 +16,10 @@ end
 class Users
   attr_accessor :fname, :lname, :id
 
-  # def self.all
-  #   data = QuestionsDatabase.instance.execute("SELECT * FROM users")
-  #   data.map { |options| Users.new(options) }
-  # end
+  def self.all
+    data = QuestionsDatabase.instance.execute("SELECT * FROM users")
+    data.map { |options| Users.new(options) }
+  end
 
   def initialize(options)
     @fname = options['fname']
@@ -50,7 +50,15 @@ class Users
   end
 
   def authored_questions
-    Question.find_by_author_id
+    questions = QuestionsDatabase.instance.execute(<<-SQL, self.id)
+    SELECT *
+    FROM questions 
+    WHERE id = ?
+    SQL
+
+    return nil if questions.length < 0 
+    
+    questions.map { |options| Questions.new(options) }
   end
 
 end
@@ -183,4 +191,5 @@ class QuestionLikes
 end
 
 
-p Users.find_by_id(1)
+u = Users.all.first
+p u.authored_questions
