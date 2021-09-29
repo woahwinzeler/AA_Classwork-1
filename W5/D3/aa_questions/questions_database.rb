@@ -119,6 +119,18 @@ class Questions
 
   end
 
+  def replies
+    replies = QuestionsDatabase.instance.execute(<<-SQL, self.id)
+    SELECT * 
+    FROM replies
+    WHERE question_id = ?
+    SQL
+
+    return nil unless replies.length > 0
+    replies.map { |options| Replies(options) }
+
+  end
+
 
 end
 
@@ -188,6 +200,21 @@ class Replies
     return nil unless reply.length > 0 
     Replies.new(reply.first)
   end
+
+  def author
+    users = QuestionsDatabase.instance.execute(<<-SQL, self.user_id)
+    SELECT *
+    FROM users
+    WHERE id = ?
+    SQL
+
+    return nil unless users.length > 0 
+    Users.new(users)
+  end
+
+  def question
+  end
+
 
 end
 
