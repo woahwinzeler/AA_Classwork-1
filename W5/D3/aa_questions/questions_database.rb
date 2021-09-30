@@ -213,6 +213,33 @@ class Replies
   end
 
   def question
+    quest = QuestionsDatabase.instance.execute(<<-SQL, self.question_id)
+    SELECT *
+    FROM questions
+    WHERE id = ?
+    SQL
+    return nil if quest.length <= 0
+    Questions.new(quest)
+  end
+
+  def parent_reply
+    parent = QuestionsDatabase.instance.execute(<<-SQL, self.parent_id)
+    SELECT *
+    FROM replies
+    WHERE id = ?
+    SQL
+    return nil if parent.length <= 0
+    Replies.new(parent)
+  end
+
+  def child_replies
+    child = QuestionsDatabase.instance.execute(<<-SQL, self.id)
+    SELECT *
+    FROM replies
+    WHERE parent_id = ?
+    SQL
+    return nil if child.length <= 0
+    Replies.new(child.first)
   end
 
 
