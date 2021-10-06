@@ -1,11 +1,16 @@
 class UsersController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  # skip_before_action :verify_authenticity_token
   def index
-    render json: params
+    render json: User.all 
   end
 
   def create
-    render json: params
+    user = User.new(user_params)
+    if user.save! 
+      render json: user 
+    else
+      render json: user.errors.full_messages
+    end 
   end
 
   def new
@@ -19,5 +24,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :email)
   end
 end
