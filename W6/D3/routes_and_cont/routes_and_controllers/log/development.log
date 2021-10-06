@@ -1,0 +1,12 @@
+  [1m[35m (91.6ms)[0m  [1m[35mCREATE DATABASE "routes_and_controllers_development" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35m (31.0ms)[0m  [1m[35mCREATE DATABASE "routes_and_controllers_test" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+Started GET "/users/index" for ::1 at 2021-10-06 14:45:43 -0700
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"index"}
+  Rendering users/show.html.erb within layouts/application
+  Rendered users/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 1424ms (Views: 1393.5ms | ActiveRecord: 0.0ms)
+
+
