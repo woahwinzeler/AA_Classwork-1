@@ -5,29 +5,27 @@ class ArtworksController < ApplicationController
 
   def show
     artwork = Artwork.find(params[:id])
-    if artwork
-      render json: artwork 
-    else
-      artwork.erros.full_messages, status: :no_content 
-    end 
+    # if artwork
+    render json: artwork 
+    # else
+    #   debugger
+    #   artwork.errors.full_messages, status: :no_content 
+    # end 
   end
 
   def update
-    artwork = Artwork.update(artworks_params)
-    if artwork 
-      redirect_to artwork_url(show)
+    artwork = Artwork.find(params[:id])
+    if artwork.update(artwork_params)
+      redirect_to artwork_url(artwork)
     else
-      artwork.erros.full_messages, status: :not_modified
+      render json: artwork.errors.full_messages, status: 422
     end
   end
 
   def destroy
     artwork = Artwork.find(params[:id])
-    if artwork.destroy
-      redirect_to artwork_url(show) #functional? 
-    else
-      artwork.erros.full_messages, status: :not_modified
-    end
+    artwork.destroy
+    redirect_to artwork_url(artwork) #functional? 
   end
 
   def create
@@ -35,7 +33,7 @@ class ArtworksController < ApplicationController
 
   private
 
-  def artworks_params 
-    params.requrie(:artworks).permit(:artist_id, :title, :image_url)
+  def artwork_params 
+    params.require(:artworks).permit(:artist_id, :title, :image_url)
   end
 end

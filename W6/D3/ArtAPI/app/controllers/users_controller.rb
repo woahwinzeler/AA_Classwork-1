@@ -17,20 +17,16 @@ class UsersController < ApplicationController
 
   def show
     user = User.find(params[:id])
-    if user
-      render json: user 
-    else
-      user.erros.full_messages, status: :no_content 
-    end 
+    render json: user 
   end
 
   def edit
   end
 
   def update
-    user = User.update(user_params)
-    if user 
-      redirect_to user_url(show)
+    user = User.find(params[:id])
+    if user.update(user_params) 
+      redirect_to user_url(user)
     else
       render json: user.errors.full_messages, status: :not_modified 
     end 
@@ -38,11 +34,9 @@ class UsersController < ApplicationController
 
   def destroy
     user = User.find(params[:id])
-    if user.destroy
-      render plain: "Deletion succesful!" #need to render deleted user 
-    else
-      render json: user.errors.full_messages, status: :not_modified 
-    end
+    user.destroy
+    render json: user #need to render deleted user 
+
   end
 
   private 
