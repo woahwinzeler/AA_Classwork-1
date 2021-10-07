@@ -8,4 +8,4 @@
 
 artist1 = User.create(name: "artist1", email: "artist1@email", username:"greatness")
 artwork1 = Artwork.create(title: "best", artist_id: 1, image_url: "artist.com")
-shared_first1 = ArtworkShare.create(artwork_id: 2, viewer_id: 1)
+shared_first1 = ArtworkShare.create(artwork_id: 1, viewer_id: 1)

@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  resources :artworks, except: [:new, :edit]
-  resources :artwork_shares, only: [:create, :destroy]
-  resources :users, except: [:new, :edit]
+  resources :users, except: [:new, :edit] do
+    resources :artworks, only: [:index]
+  end
+
+  resources :artworks, except: [:new, :index, :edit, :index]
   
-  #resources route for artwork share
+  resources :artwork_shares, only: [:create, :destroy]
+ 
   #For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -1,5 +1,9 @@
 class ArtworkShareController < ApplicationController
 
+  def index 
+    #return artwork owned and shared by user
+  end 
+
   def create
     artwork = ArtworkShare.new(artwork_share_params)
     if artwork.save 
