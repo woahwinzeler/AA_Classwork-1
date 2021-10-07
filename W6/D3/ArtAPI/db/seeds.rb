@@ -9,3 +9,4 @@
 artist1 = User.create(name: "artist1", email: "artist1@email", username:"greatness")
 artwork1 = Artwork.create(title: "best", artist_id: 1, image_url: "artist.com")
 shared_first1 = ArtworkShare.create(artwork_id: 1, viewer_id: 1)
+comment1 = Comment.create(user_id: 1, artwork_id: 6, body: 'Nice Art')

@@ -17,4 +17,7 @@ class Artwork < ApplicationRecord
   has_many :shared_viewers,
     through: :artwork_share,
     source: :viewer
+
+  has_many :comments
+  
 end
